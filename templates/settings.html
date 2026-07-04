@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold">
+
+            <i class="bi bi-gear-fill text-primary"></i>
+
+            Settings
+
+        </h2>
+
+        <p class="text-muted">
+
+            Manage your account preferences and application settings.
+
+        </p>
+
+    </div>
+
+</div>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <div class="row">
+
+        <!-- Account Information -->
+
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-header bg-primary text-white">
+
+                    <i class="bi bi-person-circle"></i>
+
+                    Account Information
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="mb-3">
+
+                        <label class="fw-semibold">
+
+                            Username
+
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            value="{{ request.user.username }}"
+                            readonly>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="fw-semibold">
+
+                            Email
+
+                        </label>
+
+                        <input
+                            type="email"
+                            class="form-control"
+                            value="{{ request.user.email }}"
+                            readonly>
+
+                    </div>
+
+                    <div>
+
+                        <label class="fw-semibold">
+
+                            Joined On
+
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            value="{{ request.user.date_joined|date:'d M Y' }}"
+                            readonly>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Notification Settings -->
+
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-header bg-success text-white">
+
+                    <i class="bi bi-bell-fill"></i>
+
+                    Notification Preferences
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="form-check mb-3">
+
+                        {{ form.email_notifications }}
+
+                        <label class="form-check-label">
+
+                            Email Notifications
+
+                        </label>
+
+                    </div>
+
+                    <div class="form-check mb-3">
+
+                        {{ form.study_reminders }}
+
+                        <label class="form-check-label">
+
+                            Study Reminders
+
+                        </label>
+
+                    </div>
+
+                    <div class="form-check mb-3">
+
+                        {{ form.interview_reminders }}
+
+                        <label class="form-check-label">
+
+                            Interview Reminders
+
+                        </label>
+
+                    </div>
+
+                    <div class="form-check">
+
+                        {{ form.placement_alerts }}
+
+                        <label class="form-check-label">
+
+                            Placement Alerts
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Appearance -->
+
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-dark text-white">
+
+                    <i class="bi bi-moon-stars-fill"></i>
+
+                    Appearance
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="form-check">
+
+                        {{ form.dark_mode }}
+
+                        <label class="form-check-label">
+
+                            Enable Dark Mode
+
+                        </label>
+
+                    </div>
+
+                    <small class="text-muted">
+
+                        Dark mode support will be available in the next update.
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Security -->
+
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-warning">
+
+                    <i class="bi bi-shield-lock-fill"></i>
+
+                    Security
+
+                </div>
+
+                <div class="card-body">
+
+                    <p class="text-muted">
+
+                        Keep your account secure by changing your password regularly.
+
+                    </p>
+
+                    <a
+                        href="{% url 'password_change' %}"
+                        class="btn btn-warning">
+
+                        <i class="bi bi-key-fill"></i>
+
+                        Change Password
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Save Button -->
+
+    <div class="text-end">
+
+        <button
+            class="btn btn-primary btn-lg">
+
+            <i class="bi bi-save"></i>
+
+            Save Settings
+
+        </button>
+
+    </div>
+
+</form>
+
+{% endblock %}

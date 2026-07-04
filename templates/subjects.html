@@ -1,0 +1,548 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Page Header -->
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold mb-1">
+
+            <i class="bi bi-book text-primary"></i>
+
+            My Subjects
+
+        </h2>
+
+        <p class="text-muted mb-0">
+
+            Organize and manage your study subjects.
+
+        </p>
+
+    </div>
+
+    <div class="d-flex align-items-center">
+
+        <span class="badge bg-primary fs-6 me-3">
+
+            {{ subject_count }} Subject{{ subject_count|pluralize }}
+
+        </span>
+
+        <a href="{% url 'add_subject' %}"
+           class="btn btn-primary">
+
+            <i class="bi bi-plus-circle"></i>
+
+            Add Subject
+
+        </a>
+
+    </div>
+
+</div>
+
+<div class="row mb-4">
+
+    <div class="col-lg-3 col-md-6 mb-3">
+
+        <div class="card border-0 shadow-sm text-center p-3">
+
+            <h6 class="text-muted">
+
+                <i class="bi bi-book text-primary"></i>
+
+                Subjects
+
+            </h6>
+
+            <h2 class="fw-bold text-primary">
+
+                {{ total_subjects }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-3">
+
+        <div class="card border-0 shadow-sm text-center p-3">
+
+            <h6 class="text-muted">
+
+                <i class="bi bi-check-circle-fill text-success"></i>
+
+                Completed Topics
+
+            </h6>
+
+            <h2 class="fw-bold text-success">
+
+                {{ completed_topics }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-3">
+
+        <div class="card border-0 shadow-sm text-center p-3">
+
+            <h6 class="text-muted">
+
+                <i class="bi bi-clock-fill text-warning"></i>
+
+                Pending Topics
+
+            </h6>
+
+            <h2 class="fw-bold text-warning">
+
+                {{ pending_topics }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-3">
+
+        <div class="card border-0 shadow-sm text-center p-3">
+
+            <h6 class="text-muted">
+
+                <i class="bi bi-graph-up-arrow text-info"></i>
+
+                Overall Progress
+
+            </h6>
+
+            <h2 class="fw-bold text-info">
+
+                {{ overall_progress }}%
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Search & Sort -->
+
+<div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-body">
+
+        <form method="GET">
+
+            <div class="row g-3">
+
+                <div class="col-md-7">
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+
+                            <i class="bi bi-search"></i>
+
+                        </span>
+
+                        <input
+                            type="text"
+                            name="search"
+                            class="form-control"
+                            placeholder="Search subjects..."
+                            value="{{ search }}">
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <select
+                        name="sort"
+                        class="form-select">
+
+                        <option value="newest"
+                            {% if sort == "newest" %}selected{% endif %}>
+                            Newest
+                        </option>
+
+                        <option value="oldest"
+                            {% if sort == "oldest" %}selected{% endif %}>
+                            Oldest
+                        </option>
+
+                        <option value="az"
+                            {% if sort == "az" %}selected{% endif %}>
+                            A → Z
+                        </option>
+
+                        <option value="za"
+                            {% if sort == "za" %}selected{% endif %}>
+                            Z → A
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary w-100">
+
+                        <i class="bi bi-funnel-fill"></i>
+
+                        Apply
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- Subject Cards -->
+
+<div class="row">
+
+{% for item in subject_data %}
+
+<div class="col-lg-4 col-md-6 mb-4">
+
+    <div class="card shadow-sm border-0 h-100 subject-card">
+
+        <div class="card-body">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <h4 class="fw-bold mb-0">
+
+                    <a href="{% url 'subject_detail' item.subject.id %}"
+                       class="text-decoration-none">
+                
+                        {{ item.subject.name }}
+                
+                    </a>
+                
+                </h4>
+
+                <i class="bi bi-book-half text-primary fs-3"></i>
+
+            </div>
+
+            <hr>
+
+            <p class="text-muted">
+
+                {{ item.subject.description }}
+
+            </p>
+
+            <small class="text-secondary">
+
+                <i class="bi bi-calendar-event"></i>
+
+                Created :
+
+                {{ item.subject.created_at|date:"d M Y" }}
+
+            </small>
+
+            <hr>
+
+            <div class="mb-3">
+
+                <div class="d-flex justify-content-between">
+
+                    <small>Progress</small>
+
+                    <small>{{ item.progress }}%</small>
+
+                </div>
+
+                <div class="progress mt-2" style="height:20px;">
+
+                    <div class="progress mt-2" style="height:20px;">
+
+                        <div
+                            class="progress-bar {{ item.progress_color }}"
+                            role="progressbar"
+                            aria-valuenow="{{ item.progress }}"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            style="width: {{ item.progress }}%;">
+                    
+                            {{ item.progress }}%
+                    
+                        </div>
+                    
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="d-flex justify-content-between">
+
+                <small class="text-muted">
+
+                    {{ item.completed_topics }} Completed
+
+                </small>
+
+                <small class="text-muted">
+
+                    {{ item.total_topics }} Topics
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="card-footer bg-white border-0">
+
+            <div class="d-flex justify-content-between">
+
+                <a href="{% url 'edit_subject' item.subject.id %}"
+                   class="btn btn-outline-primary btn-sm">
+
+                    <i class="bi bi-pencil-square"></i>
+
+                    Edit
+
+                </a>
+
+                <button
+            type="button"
+            class="btn btn-outline-danger btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#deleteModal{{ item.subject.id }}">
+
+            <i class="bi bi-trash"></i>
+
+            Delete
+
+        </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Delete Modal -->
+
+<div
+    class="modal fade"
+    id="deleteModal{{ item.subject.id }}"
+    tabindex="-1"
+    aria-labelledby="deleteModalLabel{{ item.subject.id }}"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5
+                    class="modal-title"
+                    id="deleteModalLabel{{ item.subject.id }}">
+
+                    <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+
+                    Delete Subject
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p>
+
+                    Are you sure you want to delete
+
+                    <strong>
+
+                        {{ item.subject.name }}
+
+                    </strong>
+
+                    ?
+
+                </p>
+
+                <p class="text-danger mb-0">
+
+                    This action cannot be undone.
+
+                </p>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <form
+                    method="POST"
+                    action="{% url 'delete_subject' item.subject.id %}">
+
+                    {% csrf_token %}
+
+                    <button
+                        type="submit"
+                        class="btn btn-danger">
+
+                        <i class="bi bi-trash"></i>
+
+                        Delete
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="col-12">
+
+    <div class="card shadow border-0 rounded-4">
+
+        <div class="card-body text-center py-5">
+
+            <i class="bi bi-journal-bookmark display-1 text-primary"></i>
+
+            <h3 class="fw-bold mt-3">
+
+                No Subjects Added
+
+            </h3>
+
+            <p class="text-muted">
+
+                Create your first subject to begin organizing your studies.
+
+            </p>
+
+            <a href="{% url 'add_subject' %}"
+               class="btn btn-primary">
+
+                <i class="bi bi-plus-circle"></i>
+
+                Add Subject
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+
+{% if page_obj.has_other_pages %}
+
+<nav class="mt-4">
+
+    <ul class="pagination justify-content-center">
+
+        {% if page_obj.has_previous %}
+
+        <li class="page-item">
+
+            <a class="page-link"
+               href="?page={{ page_obj.previous_page_number }}&search={{ search }}&sort={{ sort }}">
+
+                Previous
+
+            </a>
+
+        </li>
+
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+
+        <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+
+            <a class="page-link"
+               href="?page={{ num }}&search={{ search }}&sort={{ sort }}">
+
+                {{ num }}
+
+            </a>
+
+        </li>
+
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+
+        <li class="page-item">
+
+            <a class="page-link"
+               href="?page={{ page_obj.next_page_number }}&search={{ search }}&sort={{ sort }}">
+
+                Next
+
+            </a>
+
+        </li>
+
+        {% endif %}
+
+    </ul>
+
+</nav>
+
+{% endif %}
+
+{% endblock %}

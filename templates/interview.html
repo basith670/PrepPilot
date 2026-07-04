@@ -1,0 +1,320 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Page Header -->
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold">
+
+            <i class="bi bi-chat-square-dots-fill text-primary"></i>
+
+            Mock Interview
+
+        </h2>
+
+        <p class="text-muted">
+
+            Practice interview questions and track your progress.
+
+        </p>
+
+    </div>
+
+</div>
+
+<!-- Statistics -->
+
+<div class="row mb-4">
+
+    <div class="col-md-4">
+
+        <div class="card shadow-sm border-0 text-center p-3">
+
+            <h6 class="text-muted">
+
+                Total Questions
+
+            </h6>
+
+            <h2 class="text-primary">
+
+                {{ total }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card shadow-sm border-0 text-center p-3">
+
+            <h6 class="text-muted">
+
+                Completed
+
+            </h6>
+
+            <h2 class="text-success">
+
+                {{ completed }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card shadow-sm border-0 text-center p-3">
+
+            <h6 class="text-muted">
+
+                Progress
+
+            </h6>
+
+            <h2 class="text-warning">
+
+                {{ progress }}%
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Generate Interview -->
+
+<div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-header bg-primary text-white">
+
+        Generate Mock Interview
+
+    </div>
+
+    <div class="card-body">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Company
+
+                    </label>
+
+                    {{ form.company }}
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Role
+
+                    </label>
+
+                    {{ form.role }}
+
+                </div>
+
+            </div>
+
+            <button class="btn btn-primary">
+
+                <i class="bi bi-stars"></i>
+
+                Generate Questions
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% if session %}
+
+<!-- Session Details -->
+
+<div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <strong>Company</strong>
+
+                <br>
+
+                {{ session.company }}
+
+            </div>
+
+            <div class="col-md-4">
+
+                <strong>Role</strong>
+
+                <br>
+
+                {{ session.role }}
+
+            </div>
+
+            <div class="col-md-4">
+
+                <strong>Date</strong>
+
+                <br>
+
+                {{ session.created_at|date:"d M Y" }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Progress -->
+
+<div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between mb-2">
+
+            <strong>Interview Progress</strong>
+
+            <strong>{{ progress }}%</strong>
+
+        </div>
+
+        <div class="progress" style="height:20px;">
+
+            <div class="progress-bar bg-success"
+
+                 style="width:{{ progress }}%;">
+
+                {{ progress }}%
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Questions -->
+
+{% for question in questions %}
+
+<div class="card shadow-sm border-0 mb-3">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between">
+
+            <h5>
+
+                Question {{ forloop.counter }}
+
+            </h5>
+
+            <div>
+
+                <span class="badge bg-primary">
+
+                    {{ question.category }}
+
+                </span>
+
+                {% if question.difficulty == "Easy" %}
+
+                    <span class="badge bg-success">
+
+                        Easy
+
+                    </span>
+
+                {% elif question.difficulty == "Medium" %}
+
+                    <span class="badge bg-warning text-dark">
+
+                        Medium
+
+                    </span>
+
+                {% else %}
+
+                    <span class="badge bg-danger">
+
+                        Hard
+
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <p class="fs-5">
+
+            {{ question.question }}
+
+        </p>
+
+        {% if question.practiced %}
+
+            <span class="badge bg-success">
+
+                ✓ Practiced
+
+            </span>
+
+        {% else %}
+
+        <a href="{% url 'mark_practiced' question.id %}"
+        class="btn btn-outline-success btn-sm">
+     
+         <i class="bi bi-check-circle"></i>
+     
+         Mark Practiced
+     
+     </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endblock %}

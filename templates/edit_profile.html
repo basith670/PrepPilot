@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+<div class="col-lg-8">
+
+<div class="card shadow border-0">
+
+<div class="card-header bg-primary text-white">
+
+<h3>
+
+<i class="bi bi-pencil-square"></i>
+
+Edit Profile
+
+</h3>
+
+</div>
+
+<div class="card-body">
+
+<form method="POST" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+Full Name
+
+</label>
+
+{{ form.full_name }}
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+Phone
+
+</label>
+
+{{ form.phone }}
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+College
+
+</label>
+
+{{ form.college }}
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+Degree
+
+</label>
+
+{{ form.degree }}
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+Branch
+
+</label>
+
+{{ form.branch }}
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+Graduation Year
+
+</label>
+
+{{ form.graduation_year }}
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+LinkedIn
+
+</label>
+
+{{ form.linkedin }}
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+GitHub
+
+</label>
+
+{{ form.github }}
+
+</div>
+
+<div class="col-12 mb-3">
+
+<label class="form-label">
+
+Profile Picture
+
+</label>
+
+{{ form.profile_image }}
+
+</div>
+
+<div class="col-12 mb-4">
+
+<label class="form-label">
+
+Bio
+
+</label>
+
+{{ form.bio }}
+
+</div>
+
+</div>
+
+<button type="submit" class="btn btn-success">
+
+<i class="bi bi-check-circle"></i>
+
+Save Changes
+
+</button>
+
+<a href="{% url 'profile' %}" class="btn btn-secondary">
+
+Cancel
+
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

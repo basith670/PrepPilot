@@ -1,0 +1,571 @@
+{% load static %}
+
+{% url 'dashboard' as dashboard_url %}
+{% url 'subjects' as subjects_url %}
+{% url 'topics' as topics_url %}
+{% url 'placement' as placement_url %}
+{% url 'placement_readiness' as readiness_url %}
+{% url 'resume' as resume_url %}
+{% url 'calendar' as calendar_url %}
+{% url 'analytics' as analytics_url %}
+{% url 'settings' as settings_url %}
+{% url 'profile' as profile_url %}
+{% url 'interview' as interview_url %}
+{% url 'ai_study_planner' as planner_url %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PrepPilot</title>
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Custom CSS -->
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+</head>
+
+<body class="{% if user_settings.dark_mode %}dark-mode{% endif %}">
+
+
+<!-- ================= DESKTOP SIDEBAR ================= -->
+
+<div class="sidebar d-none d-lg-block">
+
+    <div class="logo">
+
+        🚀 PrepPilot
+
+    </div>
+
+    <a href="{{ profile_url }}"
+   class="{% if request.path == profile_url %}active-link{% endif %}">
+
+        <i class="bi bi-person-circle"></i>
+
+        My Profile
+
+    </a>
+
+    <a href="{{ dashboard_url }}"
+   class="{% if request.path == dashboard_url %}active-link{% endif %}">
+
+        <i class="bi bi-grid"></i>
+
+        Dashboard
+
+    </a>
+
+    <a href="{{ planner_url }}"
+   class="{% if request.path == planner_url %}active-link{% endif %}">
+
+        <i class="bi bi-robot"></i>
+
+        AI Study Planner
+
+    </a>
+
+    <a href="{{ subjects_url }}"
+   class="{% if request.path == subjects_url %}active-link{% endif %}">
+
+        <i class="bi bi-journal-bookmark"></i>
+
+        Subjects
+
+    </a>
+
+    <a href="{{ topics_url }}"
+   class="{% if request.path == topics_url %}active-link{% endif %}">
+
+        <i class="bi bi-list-task"></i>
+
+        Topics
+
+    </a>
+
+    <a href="{{ placement_url }}"
+   class="{% if request.path == placement_url %}active-link{% endif %}">
+
+        <i class="bi bi-briefcase"></i>
+
+        Placement Tracker
+
+    </a>
+
+    <a href="{{ readiness_url }}"
+   class="{% if request.path == readiness_url %}active-link{% endif %}">
+
+        <i class="bi bi-speedometer2"></i>
+
+        Placement Readiness
+
+    </a>
+
+    <a href="{{ interview_url }}"
+   class="{% if request.path == interview_url %}active-link{% endif %}">
+
+        <i class="bi bi-chat-square-dots"></i>
+    
+        Mock Interview
+    
+    </a>
+
+    <a href="{{ resume_url }}"
+   class="{% if request.path == resume_url %}active-link{% endif %}">
+
+        <i class="bi bi-file-earmark-person"></i>
+
+        Resume Manager
+
+    </a>
+
+
+    <a href="{{ calendar_url }}"
+   class="{% if request.path == calendar_url %}active-link{% endif %}">
+
+        <i class="bi bi-calendar-event"></i>
+
+        Calendar
+
+    </a>
+
+    <a href="{{ analytics_url }}"
+   class="{% if request.path == analytics_url %}active-link{% endif %}">
+
+        <i class="bi bi-bar-chart-line"></i>
+
+        Analytics
+
+    </a>
+
+    <a href="{{ settings_url }}"
+   class="{% if request.path == settings_url %}active-link{% endif %}">
+
+        <i class="bi bi-gear"></i>
+
+        Settings
+
+    </a>
+
+</div>
+
+<!-- ================= MOBILE SIDEBAR ================= -->
+
+<div class="offcanvas offcanvas-start"
+     tabindex="-1"
+     id="mobileSidebar">
+
+    <div class="offcanvas-header">
+
+        <h5 class="fw-bold">
+
+            🚀 PrepPilot
+
+        </h5>
+
+        <button
+            class="btn-close"
+            data-bs-dismiss="offcanvas">
+
+        </button>
+
+    </div>
+
+    <div class="offcanvas-body">
+
+        <a href="{% url 'dashboard' %}"
+           class="d-block mb-3 text-decoration-none text-dark">
+
+            <i class="bi bi-grid"></i>
+
+            Dashboard
+
+        </a>
+
+        <a href="{% url 'ai_study_planner' %}"
+           class="d-block mb-3 text-decoration-none text-dark">
+
+            <i class="bi bi-robot"></i>
+
+            AI Study Planner
+
+        </a>
+
+        <a href="{% url 'subjects' %}"
+           class="d-block mb-3 text-decoration-none text-dark">
+
+            <i class="bi bi-journal-bookmark"></i>
+
+            Subjects
+
+        </a>
+
+        <a href="{% url 'topics' %}"
+           class="d-block mb-3 text-decoration-none text-dark">
+
+            <i class="bi bi-list-task"></i>
+
+            Topics
+
+        </a>
+
+        <a href="{% url 'placement' %}"
+           class="d-block mb-3 text-decoration-none text-dark">
+
+            <i class="bi bi-briefcase"></i>
+
+            Placement Tracker
+
+        </a>
+
+        <a href="{% url 'placement_readiness' %}"
+           class="d-block mb-3 text-decoration-none text-dark">
+
+            <i class="bi bi-speedometer2"></i>
+
+            Placement Readiness
+
+        </a>
+
+        <a href="{% url 'interview' %}"
+            class="d-block mb-3 text-decoration-none text-dark">
+
+                <i class="bi bi-chat-square-dots"></i>
+
+                Mock Interview
+
+            </a>
+
+        <a href="{% url 'resume' %}"
+           class="d-block mb-3 text-decoration-none text-dark">
+
+            <i class="bi bi-file-earmark-person"></i>
+
+            Resume Manager
+
+        </a>
+
+        <a href="{% url 'profile' %}"
+           class="d-block mb-3 text-decoration-none text-dark">
+
+            <i class="bi bi-person-circle"></i>
+
+            My Profile
+
+        </a>
+
+        <a href="{% url 'calendar' %}"
+           class="d-block mb-3 text-decoration-none text-dark">
+
+            <i class="bi bi-calendar-event"></i>
+
+            Calendar
+
+        </a>
+
+        <a href="{% url 'analytics' %}"
+           class="d-block mb-3 text-decoration-none text-dark">
+
+            <i class="bi bi-bar-chart-line"></i>
+
+            Analytics
+
+        </a>
+
+        <a href="{% url 'settings' %}"
+           class="d-block mb-3 text-decoration-none text-dark">
+
+            <i class="bi bi-gear"></i>
+
+            Settings
+
+        </a>
+
+    </div>
+
+</div>
+
+<!-- ================= NAVBAR ================= -->
+
+<div class="navbar-custom d-flex justify-content-between align-items-center">
+
+    <div class="d-flex align-items-center">
+
+        <button
+            class="btn btn-primary d-lg-none me-3"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#mobileSidebar">
+
+            <i class="bi bi-list"></i>
+
+        </button>
+
+        <h5 class="mb-0">
+
+            PrepPilot Dashboard
+
+        </h5>
+
+    </div>
+
+    <div class="d-flex align-items-center">
+
+        <div class="dropdown me-3">
+
+            <a href="#"
+
+                    class="nav-icon position-relative"
+
+                    data-bs-toggle="dropdown">
+        
+                <i class="bi bi-bell fs-4"></i>
+        
+                {% if pending_notifications > 0 or interview_notifications > 0 %}
+        
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        
+                        {{ pending_notifications|add:interview_notifications }}
+        
+                    </span>
+        
+                {% endif %}
+        
+            </a>
+        
+            <ul class="dropdown-menu dropdown-menu-end shadow" style="width:320px;">
+        
+                <li>
+        
+                    <h6 class="dropdown-header">
+        
+                        🔔 Notifications
+        
+                    </h6>
+        
+                </li>
+        
+                <li>
+        
+                    <span class="dropdown-item-text d-flex justify-content-between">
+
+                        <span>📚 Pending Topics</span>
+                    
+                        <span class="badge bg-warning text-dark">
+                    
+                            {{ pending_notifications }}
+                    
+                        </span>
+        
+                    
+        
+                    </span>
+        
+                </li>
+        
+                <li>
+        
+                    <span class="dropdown-item-text d-flex justify-content-between">
+
+                        <span>💼 Interviews</span>
+                    
+                        <span class="badge bg-primary">
+                    
+                            {{ interview_notifications }}
+                    
+                        </span>
+                    
+                    </span>
+        
+                </li>
+        
+                <li><hr class="dropdown-divider"></li>
+        
+                {% for event in upcoming_notifications %}
+        
+                    <li>
+        
+                        <span class="dropdown-item-text">
+        
+                            📅 {{ event.title }}
+        
+                            <br>
+        
+                            <small class="text-muted">
+        
+                                {{ event.event_date }}
+        
+                            </small>
+        
+                        </span>
+        
+                    </li>
+        
+                {% empty %}
+        
+                    <li>
+        
+                        <span class="dropdown-item-text text-muted">
+        
+                            No upcoming events.
+        
+                        </span>
+        
+                    </li>
+        
+                {% endfor %}
+        
+            </ul>
+        
+        </div>
+
+        <div class="dropdown">
+
+            <a href="#"
+            class="text-dark text-decoration-none"
+            data-bs-toggle="dropdown">
+
+                {% if request.user.profile.profile_image %}
+                    <img src="{{ request.user.profile.profile_image.url }}"
+                        class="rounded-circle"
+                        width="45"
+                        height="45"
+                        style="object-fit: cover;">
+                {% else %}
+                    <i class="bi bi-person-circle fs-2"></i>
+                {% endif %}
+
+            </a>
+
+            <ul class="dropdown-menu shadow">
+
+                    <li class="text-center p-3">
+
+                        {% if request.user.profile.profile_image %}
+                    
+                            <img src="{{ request.user.profile.profile_image.url }}"
+                    
+                                 class="rounded-circle mb-2"
+                    
+                                 width="70"
+                    
+                                 height="70"
+                    
+                                 style="object-fit: cover;">
+                    
+                        {% else %}
+                    
+                            <i class="bi bi-person-circle fs-1"></i>
+                    
+                        {% endif %}
+                    
+                        <h6 class="mb-0">
+                    
+                            {{ request.user.username }}
+                    
+                        </h6>
+                    
+                        <li><hr class="dropdown-divider"></li>
+
+                    <a class="dropdown-item"
+                       href="{% url 'profile' %}">
+
+                        <i class="bi bi-person me-2"></i>
+
+                        My Profile
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a class="dropdown-item"
+                       href="{% url 'settings' %}">
+
+                        <i class="bi bi-gear me-2"></i>
+
+                        Settings
+
+                    </a>
+
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+
+                <li>
+
+                    <a class="dropdown-item text-danger"
+                       href="{% url 'logout' %}">
+
+                        <i class="bi bi-box-arrow-right me-2"></i>
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= PAGE CONTENT ================= -->
+
+<div class="content">
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm">
+
+                {{ message }}
+
+                <button
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+
+                </button>
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+    {% block content %}
+
+    {% endblock %}
+
+</div>
+
+<!-- Bootstrap -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS -->
+
+<script src="{% static 'js/script.js' %}"></script>
+
+</body>
+
+</html>

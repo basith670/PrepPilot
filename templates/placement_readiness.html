@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="mb-4">
+
+    <h2 class="fw-bold">
+
+        🎯 AI Placement Readiness
+
+    </h2>
+
+    <p class="text-muted">
+
+        Track how prepared you are for placements.
+
+    </p>
+
+</div>
+
+<div class="card shadow border-0 mb-4">
+
+    <div class="card-body text-center">
+
+        <h5>
+
+            Overall Readiness Score
+
+        </h5>
+
+        <h1 class="display-2 text-primary">
+
+            {{ score }}
+
+        </h1>
+
+        <h4>
+
+            /100
+
+        </h4>
+
+        <div class="progress mt-3" style="height:30px;">
+
+            <div
+
+                class="progress-bar bg-success"
+
+                style="width:{{ score }}%;">
+
+                {{ score }}%
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h5>
+
+                    Checklist
+
+                </h5>
+
+                <hr>
+
+                <p>
+
+                    {% if profile_complete %}
+
+                    ✅
+
+                    {% else %}
+
+                    ❌
+
+                    {% endif %}
+
+                    Complete Profile
+
+                </p>
+
+                <p>
+
+                    {% if resume_count %}
+
+                    ✅
+
+                    {% else %}
+
+                    ❌
+
+                    {% endif %}
+
+                    Resume Uploaded
+
+                </p>
+
+                <p>
+
+                    {% if study_progress >= 70 %}
+
+                    ✅
+
+                    {% else %}
+
+                    ❌
+
+                    {% endif %}
+
+                    Study Progress 70%
+
+                </p>
+
+                <p>
+
+                    {% if companies >= 5 %}
+
+                    ✅
+
+                    {% else %}
+
+                    ❌
+
+                    {% endif %}
+
+                    Applied to 5+ Companies
+
+                </p>
+
+                <p>
+
+                    {% if events >= 3 %}
+
+                    ✅
+
+                    {% else %}
+
+                    ❌
+
+                    {% endif %}
+
+                    Planned Calendar
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h5>
+
+                    Statistics
+
+                </h5>
+
+                <hr>
+
+                <p>
+
+                    📄 Resumes :
+
+                    <strong>{{ resume_count }}</strong>
+
+                </p>
+
+                <p>
+
+                    📚 Study Progress :
+
+                    <strong>{{ study_progress }}%</strong>
+
+                </p>
+
+                <p>
+
+                    🏢 Applications :
+
+                    <strong>{{ companies }}</strong>
+
+                </p>
+
+                <p>
+
+                    📅 Events :
+
+                    <strong>{{ events }}</strong>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

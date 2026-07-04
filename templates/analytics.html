@@ -1,0 +1,672 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold">
+
+            <i class="bi bi-bar-chart-line-fill text-primary"></i>
+
+            Analytics Dashboard
+
+        </h2>
+
+        <p class="text-muted">
+
+            Track your learning progress and placement journey.
+
+        </p>
+
+    </div>
+
+    <span class="badge rounded-pill bg-success px-3 py-2">
+
+        <i class="bi bi-circle-fill me-1"></i>
+    
+        Live
+    
+    </span>
+
+</div>
+
+<!-- Statistics -->
+
+<div class="row g-4 mb-5">
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="dashboard-card text-center">
+
+            <i class="bi bi-book display-5 text-primary"></i>
+
+            <h2 class="fw-bold mt-3">
+
+                {{ subject_count }}
+
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                Total Subjects
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="dashboard-card text-center">
+
+            <i class="bi bi-list-task display-5 text-success"></i>
+
+            <h2 class="fw-bold mt-3">
+
+                {{ topic_count }}
+
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                Total Topics
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="dashboard-card text-center">
+
+            <i class="bi bi-check-circle display-5 text-info"></i>
+
+            <h2 class="fw-bold mt-3">
+
+                {{ completed_topics }}
+
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                Completed Topics
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="dashboard-card text-center">
+
+            <i class="bi bi-file-earmark-person display-5 text-warning"></i>
+
+            <h2 class="fw-bold mt-3">
+
+                {{ resume_count }}
+
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                Uploaded Resumes
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Charts -->
+
+<div class="row">
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card shadow border-0 h-100">
+
+            <div class="card-header bg-primary text-white">
+
+                <h5 class="mb-0">
+
+                    📚 Topic Completion
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                {% if topic_count > 0 %}
+            
+                    <canvas id="studyChart"></canvas>
+            
+                {% else %}
+            
+                    <div class="text-center py-5">
+            
+                        <i class="bi bi-bar-chart display-1 text-muted"></i>
+            
+                        <h5 class="mt-3">
+            
+                            No Analytics Yet
+            
+                        </h5>
+            
+                        <p class="text-muted">
+            
+                            Add subjects and topics to generate analytics.
+            
+                        </p>
+            
+                    </div>
+            
+                {% endif %}
+            
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card shadow border-0 h-100">
+
+            <div class="card-header bg-success text-white">
+
+                <h5 class="mb-0">
+
+                    💼 Placement Status
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                {% if topic_count > 0 %}
+            
+                    <canvas id="placementChart"></canvas>
+            
+                {% else %}
+            
+                    <div class="text-center py-5">
+            
+                        <i class="bi bi-bar-chart display-1 text-muted"></i>
+            
+                        <h5>No Analytics Yet</h5>
+            
+                        <p class="text-muted">
+            
+                            Add data to view analytics.
+            
+                        </p>
+            
+                    </div>
+            
+                {% endif %}
+            
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card shadow border-0 h-100">
+
+            <div class="card-header bg-info text-white">
+
+                <h5 class="mb-0">
+
+                    📊 Subject-wise Topics
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                {% if topic_count > 0 %}
+            
+                    <canvas id="subjectChart"></canvas>
+            
+                {% else %}
+            
+                    <div class="text-center py-5">
+            
+                        <i class="bi bi-bar-chart display-1 text-muted"></i>
+            
+                        <h5 class="mt-3">
+            
+                            No Analytics Yet
+            
+                        </h5>
+            
+                        <p class="text-muted">
+            
+                            Subject-wise analytics will appear here.
+            
+                        </p>
+            
+                    </div>
+            
+                {% endif %}
+            
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card shadow border-0 h-100">
+
+            <div class="card-header bg-warning">
+
+                <h5 class="mb-0">
+
+                    📈 Weekly Progress
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                {% if topic_count > 0 %}
+            
+                    <canvas id="weeklyChart"></canvas>
+            
+                {% else %}
+            
+                    <div class="text-center py-5">
+            
+                        <i class="bi bi-bar-chart display-1 text-muted"></i>
+            
+                        <h5>No Analytics Yet</h5>
+            
+                        <p class="text-muted">
+            
+                            Weekly progress will appear here.
+            
+                        </p>
+            
+                    </div>
+            
+                {% endif %}
+            
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- AI Insights -->
+
+<div class="card shadow border-0">
+
+    <div class="card-header bg-dark text-white">
+
+        <h4 class="mb-0">
+
+            🤖 AI Insights
+
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-md-6">
+        
+                <div class="alert alert-success">
+        
+                    <h6 class="fw-bold">
+        
+                        🎯 Study Summary
+        
+                    </h6>
+        
+                    <p class="mb-1">
+        
+                        Completed Topics:
+                        <strong>{{ completed_topics }}</strong>
+        
+                    </p>
+        
+                    <p class="mb-0">
+        
+                        Pending Topics:
+                        <strong>{{ pending_topics }}</strong>
+        
+                    </p>
+        
+                </div>
+        
+            </div>
+        
+            <div class="col-md-6">
+        
+                <div class="alert alert-primary">
+        
+                    <h6 class="fw-bold">
+        
+                        💼 Placement Summary
+        
+                    </h6>
+        
+                    <p class="mb-1">
+        
+                        Applications:
+                        <strong>{{ applied|add:oa|add:technical|add:hr|add:selected|add:rejected }}</strong>
+        
+                    </p>
+        
+                    <p class="mb-0">
+        
+                        Selected:
+                        <strong>{{ selected }}</strong>
+        
+                    </p>
+        
+                </div>
+        
+            </div>
+        
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+// =========================
+// Topic Completion
+// =========================
+
+new Chart(document.getElementById("studyChart"),{
+
+    type:"doughnut",
+
+    data:{
+
+        labels:[
+
+            "Completed",
+
+            "Pending",
+
+            "In Progress"
+
+        ],
+
+        datasets:[{
+
+            data:[
+
+                {{ completed_topics }},
+
+                {{ pending_topics }},
+
+                {{ progress_topics }}
+
+            ],
+
+            backgroundColor:[
+
+                "#198754",
+
+                "#dc3545",
+
+                "#ffc107"
+
+            ],
+
+            borderWidth:2
+
+        }]
+
+    },
+
+    options:{
+
+        responsive:true,
+
+        plugins:{
+
+            legend:{
+
+                position:"bottom"
+
+            }
+
+        }
+
+    }
+
+});
+
+
+// =========================
+// Placement Status
+// =========================
+
+new Chart(document.getElementById("placementChart"),{
+
+    type:"bar",
+
+    data:{
+
+        labels:[
+
+            "Applied",
+
+            "OA",
+
+            "Technical",
+
+            "HR",
+
+            "Selected",
+
+            "Rejected"
+
+        ],
+
+        datasets:[{
+
+            label:"Applications",
+
+            data:[
+
+                {{ applied }},
+
+                {{ oa }},
+
+                {{ technical }},
+
+                {{ hr }},
+
+                {{ selected }},
+
+                {{ rejected }}
+
+            ],
+
+            backgroundColor:[
+
+                "#0d6efd",
+
+                "#20c997",
+
+                "#fd7e14",
+
+                "#ffc107",
+
+                "#198754",
+
+                "#dc3545"
+
+            ]
+
+        }]
+
+    },
+
+    options:{
+
+        responsive:true,
+
+        plugins:{
+
+            legend:{
+
+                display:false
+
+            }
+
+        }
+
+    }
+
+});
+
+
+// =========================
+// Subject Wise Topics
+// =========================
+
+new Chart(document.getElementById("subjectChart"),{
+
+    type:"bar",
+
+    data:{
+
+        labels:{{ subject_labels|safe }},
+
+        datasets:[{
+
+            label:"Topics",
+
+            data:{{ subject_topic_count|safe }},
+
+            backgroundColor:"#6f42c1"
+
+        }]
+
+    },
+
+    options:{
+
+        responsive:true,
+
+        plugins:{
+
+            legend:{
+
+                display:false
+
+            }
+
+        }
+
+    }
+
+});
+
+
+// =========================
+// Weekly Progress
+// =========================
+
+new Chart(document.getElementById("weeklyChart"),{
+
+    type:"line",
+
+    data:{
+
+        labels:[
+
+            "Mon",
+
+            "Tue",
+
+            "Wed",
+
+            "Thu",
+
+            "Fri",
+
+            "Sat",
+
+            "Sun"
+
+        ],
+
+        datasets:[{
+
+            label:"Study Hours",
+
+            data:[
+
+                2,
+
+                3,
+
+                4,
+
+                5,
+
+                4,
+
+                6,
+
+                5
+
+            ],
+
+            fill:true,
+
+            borderColor:"#0d6efd",
+
+            tension:0.4
+
+        }]
+
+    },
+
+    options:{
+
+        responsive:true
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

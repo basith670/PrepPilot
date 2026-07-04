@@ -1,0 +1,443 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold">
+
+            🤖 AI Study Planner
+
+        </h2>
+
+        <p class="text-muted">
+
+            Generate your personalized study schedule.
+
+        </p>
+
+    </div>
+
+</div>
+
+<!-- Generate Plan -->
+
+<div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-header bg-primary text-white">
+
+        Generate Study Plan
+
+    </div>
+
+    <div class="card-body">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Target Company
+
+                </label>
+
+                {{ form.target_company }}
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Study Hours / Day
+
+                    </label>
+
+                    {{ form.study_hours }}
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Exam Date
+
+                    </label>
+
+                    {{ form.exam_date }}
+
+                </div>
+
+            </div>
+
+            <button class="btn btn-primary">
+
+                <i class="bi bi-stars"></i>
+
+                Generate AI Plan
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% if plan %}
+
+<!-- Statistics -->
+
+<div class="row mb-4">
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card shadow-sm border-0 text-center">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Progress
+
+                </h6>
+
+                <h2 class="text-success">
+
+                    {{ progress }}%
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card shadow-sm border-0 text-center">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Completed
+
+                </h6>
+
+                <h2 class="text-primary">
+
+                    {{ completed_topics }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card shadow-sm border-0 text-center">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Remaining
+
+                </h6>
+
+                <h2 class="text-danger">
+
+                    {{ pending_topics }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card shadow-sm border-0 text-center">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Finish In
+
+                </h6>
+
+                <h2 class="text-warning">
+
+                    {{ estimated_days }} Days
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Progress -->
+
+<div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-body">
+
+        <h5>
+
+            Study Progress
+
+        </h5>
+
+        <div class="progress" style="height:25px;">
+
+            <div
+                class="progress-bar bg-success"
+                style="width:{{ progress }}%;">
+
+                {{ progress }}%
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- AI Recommendation -->
+
+<div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-header bg-dark text-white">
+
+        🤖 Today's AI Recommendation
+
+    </div>
+
+    <div class="card-body">
+
+        {% if recommended_topics %}
+
+        <div class="list-group">
+
+            {% for topic in recommended_topics %}
+
+            <div class="list-group-item">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <h6 class="mb-1">
+
+                            {{ topic.title }}
+
+                        </h6>
+
+                        <small>
+
+                            {{ topic.subject.name }}
+
+                        </small>
+
+                    </div>
+
+                    <div>
+
+                        {% if topic.difficulty == "Hard" %}
+
+                        <span class="badge bg-danger">
+
+                            Hard
+
+                        </span>
+
+                        {% elif topic.difficulty == "Medium" %}
+
+                        <span class="badge bg-warning text-dark">
+
+                            Medium
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-success">
+
+                            Easy
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                <small class="text-muted">
+
+                    Estimated Time:
+
+                    {{ topic.estimated_hours }} hrs
+
+                </small>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-success mb-0">
+
+            🎉 No pending topics today.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- Warning -->
+
+{% if warning %}
+
+<div class="alert alert-danger">
+
+    <h5>
+
+        ⚠ Exam Warning
+
+    </h5>
+
+    Your study schedule requires
+
+    <strong>{{ estimated_days }}</strong>
+
+    days but only
+
+    <strong>{{ days_left }}</strong>
+
+    days remain before your exam.
+
+</div>
+
+{% endif %}
+
+<!-- Daily Schedule -->
+
+<div class="card shadow-sm border-0">
+
+    <div class="card-header bg-success text-white">
+
+        🤖 AI Generated Daily Schedule
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row mb-4">
+
+            <div class="col-md-4">
+
+                <strong>Target Company</strong><br>
+
+                {{ plan.target_company }}
+
+            </div>
+
+            <div class="col-md-4">
+
+                <strong>Study Hours</strong><br>
+
+                {{ plan.study_hours }} hrs/day
+
+            </div>
+
+            <div class="col-md-4">
+
+                <strong>Exam Date</strong><br>
+
+                {{ plan.exam_date }}
+
+            </div>
+
+        </div>
+
+        {% for day in schedule %}
+
+        <div class="card border-start border-4 border-primary mb-3">
+
+            <div class="card-body">
+
+                <h5>
+
+                    📅 {{ day.date }}
+
+                </h5>
+
+                <ul class="mb-0">
+
+                    {% for topic in day.topics %}
+
+                    <li>
+
+                        <strong>{{ topic.subject.name }}</strong>
+
+                        -
+
+                        {{ topic.title }}
+
+                        ({{ topic.estimated_hours }} hrs)
+
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="alert alert-success">
+
+            🎉 Congratulations! All topics are completed.
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
