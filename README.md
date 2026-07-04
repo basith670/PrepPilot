@@ -113,24 +113,24 @@ git clone https://github.com/yourusername/preppilot.git
 cd preppilot
 ```
 
-### Create Virtual Environment
+## Create Virtual Environment
 
 ```bash
-python -m venv venv
+python -m venv env
 ```
 
-### Activate Environment
+## Activate Environment
 
-Windows
+### Windows
 
 ```bash
-venv\Scripts\activate
+env\Scripts\activate
 ```
 
-Mac/Linux
+### Mac/Linux
 
 ```bash
-source venv/bin/activate
+source env/bin/activate
 ```
 
 ### Install Requirements
