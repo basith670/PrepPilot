@@ -882,7 +882,7 @@ body.dark-mode textarea::-moz-placeholder{
 
 }
 
-.auth-card input{
+.auth-card input:not([type="checkbox"]){
 
     border-radius:12px;
 
