@@ -1,125 +1,169 @@
 # 🚀 PrepPilot
 
-PrepPilot is an AI-powered Study Planner and Placement Preparation Assistant built using Django. It helps students organize their studies, track placement applications, manage resumes, schedule important events, and monitor their overall preparation through a modern dashboard.
+![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python)
+![Django](https://img.shields.io/badge/Django-5.x-green?logo=django)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple?logo=bootstrap)
+![License](https://img.shields.io/badge/License-Educational-orange)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
+
+PrepPilot is a modern AI-powered Study Planner and Placement Preparation platform built with Django. It helps students organize their learning, track placement applications, manage resumes, schedule study events, and monitor overall preparation through a responsive dashboard.
 
 ---
 
-## ✨ Features
+# 🌐 Live Demo
 
-### 📊 Dashboard
+**Render Deployment**
+
+https://preppilot-tx5z.onrender.com
+
+---
+
+# ✨ Features
+
+## 🔐 Authentication
+
+- User Registration
+- Secure Login & Logout
+- Password Change
+- User Profile Management
+
+## 📊 Dashboard
+
 - Personalized dashboard
-- Study progress overview
 - Study streak tracking
+- Progress overview
 - Upcoming events
 - Placement readiness
-- Quick actions
+- Quick statistics
 
-### 📚 Subject Management
-- Add, edit and delete subjects
-- Subject-wise progress tracking
-- Search and sorting
+## 📚 Subject Management
 
-### 📖 Topic Management
+- Create subjects
+- Update subjects
+- Delete subjects
+- View subject details
+
+## 📖 Topic Management
+
 - Add study topics
-- Track topic status
+- Difficulty levels
+- Progress tracking
 - Estimated study hours
-- Filter and search topics
 
-### 💼 Placement Tracker
-- Track company applications
-- Application stages
-- Interview progress
-- Package information
-- Search and filtering
+## 💼 Placement Tracker
 
-### 📄 Resume Manager
-- Upload resumes
-- Download resumes
-- Edit resume information
-- Delete resumes
+- Company applications
+- Interview stages
+- Package details
+- Application status
+- Placement readiness tracker
 
-### 📅 Calendar & Events
-- Add study events
+## 📄 Resume Manager
+
+- Upload resume
+- Edit resume
+- Delete resume
+- Download resume
+
+## 📅 Calendar
+
+- Study schedules
+- Exam reminders
 - Interview reminders
-- Exam schedules
-- Deadline tracking
+- Event management
 
-### 📈 Analytics
-- Study analytics
-- Placement statistics
-- Subject-wise analysis
-- Weekly progress
-- AI Insights
+## 📈 Analytics
 
-### 👤 Profile
-- Profile image upload
-- Personal information
-- Account management
+- Study statistics
+- Subject analysis
+- Progress monitoring
+- Dashboard insights
 
-### ⚙️ Settings
-- Dark Mode
+## 👤 Profile
+
+- Profile photo
+- Personal details
+- College information
+- Social links
+
+## ⚙️ Settings
+
 - Theme preferences
+- Dark mode
 - Account settings
+
+## ❌ Custom Error Pages
+
+- Custom 404 Page
+- Custom 500 Page
 
 ---
 
-## 🛠 Tech Stack
+# 🛠 Tech Stack
 
 ### Backend
-- Django
+
 - Python
+- Django
 - SQLite
 
 ### Frontend
+
 - HTML5
 - CSS3
 - Bootstrap 5
 - Bootstrap Icons
 - JavaScript
 
+### Tools
+
+- Git
+- GitHub
+- Render
+
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
-```
-PrepPilot/
+```text
+PrepPilot
 │
 ├── preppilot/
-├── student/
-├── templates/
+├── studyplanner/
 ├── static/
 │   ├── css/
 │   ├── js/
 │   └── images/
-├── media/
-├── db.sqlite3
+├── templates/
+├── uploads/
 ├── manage.py
+├── requirements.txt
 └── README.md
 ```
 
 ---
 
-## 🚀 Installation
+# 🚀 Installation
 
-### Clone Repository
-
-```bash
-git clone https://github.com/yourusername/preppilot.git
-```
-
-### Move into Project
+Clone the repository
 
 ```bash
-cd preppilot
+git clone https://github.com/basith670/PrepPilot.git
 ```
 
-## Create Virtual Environment
+Move into the project
+
+```bash
+cd PrepPilot
+```
+
+Create a virtual environment
 
 ```bash
 python -m venv env
 ```
 
-## Activate Environment
+Activate the environment
 
 ### Windows
 
@@ -127,31 +171,31 @@ python -m venv env
 env\Scripts\activate
 ```
 
-### Mac/Linux
+### macOS / Linux
 
 ```bash
 source env/bin/activate
 ```
 
-### Install Requirements
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Run Migrations
+Run migrations
 
 ```bash
 python manage.py migrate
 ```
 
-### Start Server
+Start the development server
 
 ```bash
 python manage.py runserver
 ```
 
-Open
+Open your browser:
 
 ```
 http://127.0.0.1:8000/
@@ -159,35 +203,74 @@ http://127.0.0.1:8000/
 
 ---
 
-## 📷 Screenshots
+# 📷 Screenshots
 
-Add screenshots here after deployment.
+## 🔐 Login
 
-Example:
-
-- Dashboard
-- Subjects
-- Topics
-- Placement Tracker
-- Analytics
-- Calendar
+![Login](assets/login.png)
 
 ---
 
-## 🔮 Future Improvements
+## 📝 Register
 
-- AI Study Planner
-- AI Resume Analyzer
-- Email Notifications
-- Mock Interview AI
-- PDF Analytics Reports
-- Mobile App
+![Register](assets/register.png)
+
+---
+
+## 📊 Dashboard
+
+![Dashboard](assets/dashboard.png)
+
+---
+
+## 📚 Subjects
+
+![Subjects](assets/subjects.png)
+
+---
+
+## 📖 Topics
+
+![Topics](assets/topics.png)
+
+---
+
+## 💼 Placement Tracker
+
+![Placement](assets/placement.png)
+
+---
+
+## 📄 Resume Manager
+
+![Resume](assets/resume.png)
+
+---
+
+## 📅 Calendar
+
+![Calendar](assets/calendar.png)
+
+---
+
+## 📈 Analytics
+
+![Analytics](assets/analytics.png)
+
+# 🔮 Future Enhancements
+
+- AI-powered study recommendations
+- AI resume analyzer
+- Mock interview assistant
+- Email notifications
 - REST API
-- React Frontend
+- React frontend
+- PostgreSQL database
+- Mobile application
 
 ---
 
-## 👨‍💻 Developed By
+# 👨‍💻 Developer
 
 **Muhammad Basith K**
 
@@ -195,8 +278,10 @@ B.Tech Computer Engineering
 
 SRM Institute of Science and Technology
 
+GitHub: https://github.com/basith670
+
 ---
 
-## 📄 License
+# 📄 License
 
-This project is developed for educational purposes.
+This project was developed for educational and portfolio purposes.
