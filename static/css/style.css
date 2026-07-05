@@ -840,3 +840,62 @@ body.dark-mode textarea::-moz-placeholder{
     opacity:1;
 
 }
+
+
+
+
+/* =======================================
+   AUTHENTICATION PAGES
+======================================= */
+
+.auth-body{
+
+    background:#f5f7fb;
+
+}
+
+.auth-left{
+
+    background:linear-gradient(135deg,#4f46e5,#2563eb);
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:60px;
+
+}
+
+.auth-card{
+
+    width:100%;
+
+    max-width:450px;
+
+    background:#fff;
+
+    padding:45px;
+
+    border-radius:20px;
+
+    box-shadow:0 20px 45px rgba(0,0,0,.12);
+
+}
+
+.auth-card input{
+
+    border-radius:12px;
+
+    height:50px;
+
+}
+
+.auth-card .btn{
+
+    height:50px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+}
