@@ -34,6 +34,11 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
+    "preppilot-tx5z.onrender.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://preppilot-tx5z.onrender.com",
 ]
 
 
